@@ -1,0 +1,1 @@
+{"version":1,"defects":{"CalculadoraTest::testSumaDeDosNumeros":8,"GetPositionTest::testGetPosition":8,"MoveFowardTest::testMoveFowardDirectionNorth":7},"times":{"CalculadoraTest::testSumaDeDosNumeros":0.007,"GetPositionTest::testGetPosition":0,"GetDirectionTest::testGetDirection":0.009,"MoveFowardTest::testMoveFowardDirectionNorth":0.001}}

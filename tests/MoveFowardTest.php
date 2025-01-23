@@ -2,13 +2,14 @@
 
 use PHPUnit\Framework\TestCase;
 use App\Rover;
+use App\Obstacle;
 
 class MoveFowardTest extends TestCase
 {
     public function testMoveFoward()
     {
-        $rover = new Rover(0,0,"N");
-        $rover-> moveFoward($rover->getDirection());
+        $rover = new Rover();
+        $rover-> moveFoward();
         $expectedPosition = [0,1];
         $this-> assertEquals($expectedPosition, $rover->getPosition());
     }
@@ -16,7 +17,7 @@ class MoveFowardTest extends TestCase
     public function testDetectObstacle()
     {
         $rover = new Rover(0,0,"E");
-        $obstacle = new Obstable(1,0);
+        $obstacle = new Obstacle([1,0]);
 
         $this-> expectException(Exception::class);
         $this-> expectExceptionMessage("Obstacle detected at position [1, 0]. Movement stopped. Current position: [0, 0]");

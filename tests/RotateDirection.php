@@ -8,7 +8,7 @@ class RotateDirection extends TestCase
     public function testRotateDirectionLeft()
     {
         $rotationInput = "L";
-        $rover = new Rover(0,0,"N");
+        $rover = new Rover();
         $expectecDirection = "W";
         $rover-> rotateDirection($rotationInput);
         $this-> assertEquals($expectecDirection, $rover->getDirection());

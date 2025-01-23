@@ -7,8 +7,8 @@ class GetDirectionTest extends TestCase
 {
     public function testGetDirection()
     {
-        $rover = new Rover(0,0,"e");
+        $rover = new Rover();
         $direction = $rover->getDirection();
-        $this-> assertEquals("E", $direction);
+        $this-> assertEquals("N", $direction);
     }
 }

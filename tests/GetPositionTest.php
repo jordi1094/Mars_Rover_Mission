@@ -7,7 +7,7 @@ class GetPositionTest extends TestCase
 {
     public function testGetPosition()
     {
-        $rover = new Rover(0,0,"e");
+        $rover = new Rover();
         $position = $rover->getPosition();
         $this->assertEquals([0,0], $position);
     }

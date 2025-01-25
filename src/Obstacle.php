@@ -14,7 +14,7 @@ class Obstacle
         $this-> position = new Position ($obstacleSite[0], $obstacleSite[1]);
     }
 
-    public function getPosition()
+    public function getCoordinates()
     {
         return $this->position->getposition();
     }

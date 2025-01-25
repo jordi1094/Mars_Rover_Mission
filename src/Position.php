@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App;
 
 class Position
@@ -7,7 +8,7 @@ class Position
     private int $x;
     private int $y;
 
-    public function __construct(int $x, int $y)
+    public function __construct(int $x = 0, int $y = 0)
     {
         $this->x = $x;
         $this->y = $y;
@@ -15,8 +16,8 @@ class Position
 
     public function setPosition($newPosition)
     {
-        $this->x = $newPosition[0];
-        $this->y = $newPosition[1];
+        $this->x = $newPosition->x;
+        $this->y = $newPosition->y;
     }
 
     public function getPosition()

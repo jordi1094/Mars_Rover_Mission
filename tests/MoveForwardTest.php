@@ -1,17 +1,19 @@
 <?php
+declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use App\Rover;
 use App\Obstacle;
+use App\Position;
 
-class MoveFowardTest extends TestCase
+class MoveForwardTest extends TestCase
 {
-    public function testMoveFoward()
-    {
+    public function testMoveForward()
+    {   
         $rover = new Rover();
-        $rover-> moveFoward();
-        $expectedPosition = [0,1];
-        $this-> assertEquals($expectedPosition, $rover->getPosition());
+        $rover->moveRoverForward();
+        $expectedCoordinates = [0,1];
+        $this-> assertEquals($expectedCoordinates, $rover->getCoordinates());
     }
     
     public function testDetectObstacle()
@@ -22,7 +24,7 @@ class MoveFowardTest extends TestCase
         $this-> expectException(Exception::class);
         $this-> expectExceptionMessage("Obstacle detected at position [1, 0]. Movement stopped. Current position: [0, 0]");
         
-        $rover-> moveFoward($rover->getDirection());
+        $rover-> moveRoverForward();
     }
 
     public function testStopRoverBeforeOutOfRange()
@@ -32,6 +34,6 @@ class MoveFowardTest extends TestCase
         $this-> expectException(Exception::class);
         $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the cojntrol from the rover.");
         
-        $rover-> moveFoward($rover->getDirection());
+        $rover-> moveRoverForward();
     }
 }

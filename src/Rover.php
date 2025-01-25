@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App;
 
-use Exception;
 use App\Position;
 use App\Direction;
+use App\Mover;
+use App\Rotator;
 
 class Rover
 {
@@ -17,34 +19,33 @@ class Rover
         $this->direction = new Direction($direction);
     }
 
-    public function getPosition()
+    public function getCoordinates()
     {
         return $this->position->getPosition();
     }
-    public function getDirection()
+
+    public function getFacingDirection()
     {
-        return $this->direction->getDirection();
+        return $this->direction;
     }
 
-    public function moveFoward()
+    public function moveRoverForward()
     {
-        $currentPosition = $this->getPosition();
+        $currentPosition = $this->position;
+        $currentDirection= $this->direction;
         
-       switch($this->direction->getDirection()){
-        case "N":
-            $currentPosition[1] += 1;
-            break;
-        case "S":
-            $currentPosition[1] -=1;
-            break;
-        case "E":
-            $currentPosition[0] +=1;
-            break;
-        case "W":
-            $currentPosition[0] -=1;
-            break;
-       } 
-       $this->position->setPosition($currentPosition);
+        $newPosition = Mover::moveForward($currentPosition, $currentDirection);
+
+        $this->position->setPosition($newPosition);
     }
 
+    public function RotateDirection($rotateInput)
+    {
+        $currentDirection = $this->direction->getDirection();
+
+        $newDirection =  Rotator::rotate($rotateInput, $currentDirection);
+
+        $this->direction->setDirection($newDirection);
+
+    }
 }

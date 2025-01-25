@@ -3,12 +3,12 @@
 use PHPUnit\Framework\TestCase;
 use App\Rover;
 
-class GetPositionTest extends TestCase
+class GetCoordinatesTest extends TestCase
 {
-    public function testGetPosition()
+    public function testGetCoordinades()
     {
         $rover = new Rover();
-        $position = $rover->getPosition();
+        $position = $rover->getCoordinates();
         $this->assertEquals([0,0], $position);
     }
 }

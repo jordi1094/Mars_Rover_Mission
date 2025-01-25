@@ -1,11 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App;
 
 class Direction
 {
     private string $direction;
-    private $validDirections = ["N", "E", "S", "W"];
 
     public function __construct($direction)
     {

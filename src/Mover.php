@@ -5,10 +5,28 @@ namespace App;
 
 use App\Position;
 use App\Direction;
+use App\ObstacleRandomCreator;
+use App\Obstacle;
+use Exception;
+
+use function PHPUnit\Framework\throwException;
 
 class Mover {
+
+    private static function nextPositionAble(int $x, int $y, array $obstaclesArray):bool
+    {
+        foreach($obstaclesArray as $obstacle)
+        {
+            $coordinates = $obstacle->getCoordinates();
+            if($coordinates === [$x, $y]){
+                return false;
+            }
+        }
+        return true;
+
+    }
     
-    public static function moveForward(Position $currentPosition, Direction $direction):Position
+    public static function moveForward(Position $currentPosition, Direction $direction, array $obstaclesArray):Position
     {
         list($x, $y) = $currentPosition->getPosition();
 
@@ -26,8 +44,22 @@ class Mover {
                 $x -= 1;
                 break;
         }
-        $newPosition = new Position($x, $y);
 
-        return $newPosition;
+
+        if(self::nextPositionAble($x, $y, $obstaclesArray)){
+
+            if($x > 100 || $x < -100 || $y > 100 || $y < -100){
+                $newPosition = $currentPosition;
+                throw new Exception("The next step is not possible, if you go away this point you will lose the cojntrol from the rover. Your actual Position is: ". $currentPosition->getPosition());
+            }else{
+                $newPosition = new Position($x, $y);
+                return $newPosition;
+            }
+        }else{
+            $obstacleCoordinates = [$x, $y];
+            $newPosition = $currentPosition;
+            throw new Exception("Obstacle detected at position ". $obstacleCoordinates.". Movement stopped. Current position: ".$newPosition->getPosition());
+        }
+
     }
 }

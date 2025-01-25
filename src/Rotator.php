@@ -6,9 +6,9 @@ namespace App;
 
 class Rotator
 {
-    private static $orderDirections = ["N", "E", "S", "W"];
+    private static array $orderDirections = ["N", "E", "S", "W"];
 
-    public static function rotate($rotateInput, $currentDirection):string
+    public static function rotate( string $rotateInput, string $currentDirection):string
     {
         $currentIndex = array_search($currentDirection, self::$orderDirections);
         

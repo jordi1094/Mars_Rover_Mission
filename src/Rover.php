@@ -13,33 +13,33 @@ class Rover
     private Position $position;
     private Direction $direction;
 
-    public function __construct($x=0, $y=0, $direction = "N")
+    public function __construct(int $x=0, int $y=0, string $direction = "N")
     {
         $this->position = new Position($x, $y);
         $this->direction = new Direction($direction);
     }
 
-    public function getCoordinates()
+    public function getCoordinates():array
     {
         return $this->position->getPosition();
     }
 
-    public function getFacingDirection()
+    public function getFacingDirection():Direction
     {
         return $this->direction;
     }
 
-    public function moveRoverForward()
+    public function moveRoverForward($obstaclesArray)
     {
         $currentPosition = $this->position;
         $currentDirection= $this->direction;
         
-        $newPosition = Mover::moveForward($currentPosition, $currentDirection);
+        $newPosition = Mover::moveForward($currentPosition, $currentDirection, $obstaclesArray);
 
         $this->position->setPosition($newPosition);
     }
 
-    public function RotateDirection($rotateInput)
+    public function rotateDirection($rotateInput)
     {
         $currentDirection = $this->direction->getDirection();
 

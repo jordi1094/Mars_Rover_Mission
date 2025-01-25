@@ -6,16 +6,16 @@ use App\Obstacle;
 
 class ObstacleRandomCreator
 {
-    private static $obstaclesArray = [];
+    private static array $obstaclesArray = [];
 
-    private static function randomNumberGenerator($min = -100, $max = 100)
+    private static function randomNumberGenerator(int $min = -100, int $max = 100):int
     {
         $randomNumber = rand($min, $max);
 
         return $randomNumber;
     }
 
-    public static function isObjectUnique($x, $y)
+    public static function isObjectUnique($x, $y):bool
     {
         foreach (self::$obstaclesArray as $obstacle)
         {
@@ -28,7 +28,7 @@ class ObstacleRandomCreator
         return true;
     }
 
-    public static function createRandomObstacleList($roverCoordinates, $obstacleQuantity)
+    public static function createRandomObstacleList(array $roverCoordinates, int $obstacleQuantity):array
     {
         $count = 0;
         
@@ -36,7 +36,7 @@ class ObstacleRandomCreator
             $x = self::randomNumberGenerator();
             $y = self::randomNumberGenerator();
 
-            if(self::isObjectUnique($x, $y)){
+            if(self::isObjectUnique($x, $y) && [$x, $y] !== $roverCoordinates){
                 $obstacle = new Obstacle([$x, $y]);
                 
                 self::$obstaclesArray[] = $obstacle;
@@ -44,7 +44,11 @@ class ObstacleRandomCreator
             }
 
         }
+        return self::$obstaclesArray;
+    }
 
+    public static function getObstacleArray():array
+    {
         return self::$obstaclesArray;
     }
 }

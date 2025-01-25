@@ -12,6 +12,6 @@ class ObstacleRandomCreatorTest extends TestCase
         $rover = new Rover();
         $obstacleQuantity = 60;
         $ObjectsArray = ObstacleRandomCreator::createRandomObstacleList($rover->getCoordinates(), $obstacleQuantity);
-        $this->assertEquals(count($ObjectsArray), 60);
+        $this->assertEquals(count($ObjectsArray), $obstacleQuantity);
     }
 }

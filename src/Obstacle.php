@@ -9,12 +9,12 @@ class Obstacle
 {
     private Position $position;
 
-    public function __construct($obstacleSite)
+    public function __construct(array $obstacleSite)
     {
         $this-> position = new Position ($obstacleSite[0], $obstacleSite[1]);
     }
 
-    public function getCoordinates()
+    public function getCoordinates():array
     {
         return $this->position->getposition();
     }

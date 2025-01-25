@@ -7,17 +7,17 @@ class Direction
 {
     private string $direction;
 
-    public function __construct($direction)
+    public function __construct( string $direction)
     {
         $this->direction = $direction;
     }
 
-    public function setDirection($newDirection)
+    public function setDirection( string $newDirection)
     {
         $this->direction = $newDirection;
     }
 
-    public function getDirection()
+    public function getDirection():string
     {
         return $this->direction;
     }

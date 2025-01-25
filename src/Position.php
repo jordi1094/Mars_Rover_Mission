@@ -14,13 +14,13 @@ class Position
         $this->y = $y;
     }
 
-    public function setPosition($newPosition)
+    public function setPosition(Position $newPosition)
     {
         $this->x = $newPosition->x;
         $this->y = $newPosition->y;
     }
 
-    public function getPosition()
+    public function getPosition():array
     {
         return [$this->x, $this->y];
     }

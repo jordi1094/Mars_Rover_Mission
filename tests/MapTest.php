@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\class\Map;
+use App\models\Map;
 
 class MapTest extends TestCase
 {

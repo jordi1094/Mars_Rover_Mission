@@ -1,6 +1,6 @@
 <?php
 
-namespace App\class;
+namespace App\models;
 
 use App\logic\ObstacleRandomCreator;
 
@@ -29,5 +29,9 @@ class Map
     public function getObstaclesArray(): array
     {
         return $this->obstacleArray;
+    }
+    public function setObstaclesArray($obstaclesArray)
+    {
+        $this->obstacleArray = $obstaclesArray;
     }
 }

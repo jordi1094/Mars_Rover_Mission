@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\class;
+namespace App\models;
 
-use App\class\Position;
+use App\models\Position;
 
 class Obstacle
 {

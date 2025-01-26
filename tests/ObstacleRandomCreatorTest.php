@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use App\logic\ObstacleRandomCreator;
-use App\class\Rover;
+use App\models\Rover;
 
 class ObstacleRandomCreatorTest extends TestCase
 {

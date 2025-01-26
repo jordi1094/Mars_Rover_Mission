@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\class\Rover;
-use App\class\Direction;
+use App\models\Rover;
+use App\models\Direction;
 
 class RotateDirectionTest extends TestCase
 {

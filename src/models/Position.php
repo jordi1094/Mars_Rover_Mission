@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\class;
+namespace App\models;
 
 class Position
 {
@@ -23,5 +23,10 @@ class Position
     public function getPosition(): array
     {
         return [$this->x, $this->y];
+    }
+
+    public function __toString()
+    {
+        return "[".$this->x.",".$this->y."]";
     }
 }

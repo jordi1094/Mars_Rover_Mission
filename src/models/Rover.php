@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\class;
+namespace App\models;
 
-use App\class\Position;
-use App\class\Direction;
+use App\models\Position;
+use App\models\Direction;
+use App\models\Map;
 use App\logic\Mover;
 use App\logic\Rotator;
 
@@ -35,12 +36,12 @@ class Rover
         return [$this->position, $this->direction];
     }
 
-    public function moveRoverForward($obstaclesArray, $maxRange)
+    public function moveRoverForward(Map $map)
     {
         $currentPosition = $this->position;
         $currentDirection = $this->direction;
 
-        $newPosition = Mover::moveForward($currentPosition, $currentDirection, $obstaclesArray, $maxRange);
+        $newPosition = Mover::moveForward($currentPosition, $currentDirection,$map);
 
         $this->position->setPosition($newPosition);
     }

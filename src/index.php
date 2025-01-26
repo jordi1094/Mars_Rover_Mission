@@ -6,8 +6,8 @@ namespace App;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\logic\ReaderAndExecutorCommands;
-use App\class\Rover;
-use App\class\Map;
+use App\models\Rover;
+use App\models\Map;
 use Exception;
 
 $correctDirections = ["N", "E", "S", "W"];

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\class\Rover;
+use App\models\Rover;
 
 class GetCoordinatesTest extends TestCase
 {

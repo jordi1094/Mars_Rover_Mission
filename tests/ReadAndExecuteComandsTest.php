@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use App\class\Direction;
-use App\class\Map;
-use App\class\Position;
-use App\class\Rover;
+use App\models\Direction;
+use App\models\Map;
+use App\models\Position;
+use App\models\Rover;
 use App\logic\ReaderAndExecutorCommands;
 
 class ReadAndExecuteComandsTest extends TestCase

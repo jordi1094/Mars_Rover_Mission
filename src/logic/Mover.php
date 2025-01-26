@@ -4,31 +4,18 @@ declare(strict_types=1);
 
 namespace App\logic;
 
-use App\class\Position;
-use App\class\Direction;
+use App\models\Position;
+use App\models\Direction;
+use App\models\Map;
 use Exception;
 
 
 class Mover
-{
+{   
+    private static function getNextPosition(Position $position, Direction $direction){
+        list($x, $y) = $position->getPosition();
 
-    private static function nextPositionAble(int $x, int $y, array $obstaclesArray): bool
-    {
-        foreach ($obstaclesArray as $obstacle) {
-            $coordinates = $obstacle->getCoordinates();
-            if ($coordinates === [$x, $y]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static function moveForward(Position $currentPosition, Direction $direction, array $obstaclesArray, $maxRange): Position
-    {
-
-        list($x, $y) = $currentPosition->getPosition();
-
-        switch ($direction->getDirection()) {
+         switch ($direction->getDirection()) {
             case "N":
                 $y += 1;
                 break;
@@ -42,25 +29,48 @@ class Mover
                 $x -= 1;
                 break;
         }
+        return new Position($x, $y);
+    }
 
-
-        if (self::nextPositionAble($x, $y, $obstaclesArray)) {
-
-            if ($x > $maxRange || $x < -$maxRange || $y > $maxRange || $y < -$maxRange) {
-                $newPosition = $currentPosition;
-                throw new Exception("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: [" . $currentPosition->getPosition()[0] . "," . $currentPosition->getPosition()[1] . "] " . $direction->getDirection());
-            } else {
-                $newPosition = new Position($x, $y);
-                return $newPosition;
+    private static function nextPositionAble(Position $position, array $obstaclesArray): bool
+    {
+        foreach ($obstaclesArray as $obstacle) {
+            $coordinates = $obstacle->getCoordinates();
+            if ($coordinates === $position->getPosition() ) {
+                return false;
             }
-        } else {
-            $obstacleCoordinates = [$x, $y];
+        }
+        return true;
+    }
+
+    private static function isOutsideBounds(Position $position, $maxRange)
+    {
+        list($x, $y) = $position->getPosition();
+
+        return ($x > $maxRange || $x < -$maxRange || $y > $maxRange || $y < -$maxRange);
+
+    }
+
+    public static function moveForward(Position $currentPosition, Direction $direction, Map $map): Position
+    {
+
+        $maxRange = $map->getMaxRange();
+        $obstaclesArray = $map->getObstaclesArray();
+        
+        $nextPosition = self::getNextPosition($currentPosition, $direction);
+
+        if (!self::nextPositionAble($nextPosition, $obstaclesArray)) {
+            
             $newPosition = $currentPosition;
             throw new Exception(
-                "Obstacle detected at position [" . $obstacleCoordinates[0] . "," . $obstacleCoordinates[1] .
-                    "]. Movement stopped. Current position: [" . $newPosition->getPosition()[0] . "," .
-                    $newPosition->getPosition()[1] . "] " . $direction->getDirection()
+                "Obstacle detected at position ".$nextPosition.". Movement stopped. Current position: ".$currentPosition. " " . $direction->getDirection()
             );
         }
+
+        if (self::isOutsideBounds($nextPosition, $maxRange)) {
+            throw new Exception("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: ".$currentPosition ." " . $direction->getDirection());
+        }
+        
+        return $nextPosition;
     }
 }

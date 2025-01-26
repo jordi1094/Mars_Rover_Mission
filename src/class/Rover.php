@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace App\class;
 
-use App\Position;
-use App\Direction;
-use App\Mover;
-use App\Rotator;
+use App\class\Position;
+use App\class\Direction;
+use App\logic\Mover;
+use App\logic\Rotator;
 
 class Rover
 {
@@ -34,12 +34,12 @@ class Rover
         return [$this->position ,$this->direction];
     }
 
-    public function moveRoverForward($obstaclesArray)
+    public function moveRoverForward($obstaclesArray, $maxRange)
     {
         $currentPosition = $this->position;
         $currentDirection= $this->direction;
         
-        $newPosition = Mover::moveForward($currentPosition, $currentDirection, $obstaclesArray);
+        $newPosition = Mover::moveForward($currentPosition, $currentDirection, $obstaclesArray, $maxRange);
 
         $this->position->setPosition($newPosition);
 

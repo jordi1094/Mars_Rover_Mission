@@ -1,21 +1,24 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace App\logic;
 
-use App\Rover;
+use App\class\Rover;
+use App\class\Map;
 
 class ReaderAndExecutorCommands
 {
-    public static function readAndExecuteCommands( string $commands, Rover $rover, Array $obstaclesArray):array
+    public static function readAndExecuteCommands( string $commands, Rover $rover, Map $map):array
     {
+        $maxRange = $map->getMaxRange();
+        $obstaclesArray = $map->getObstaclesArray();
         $commandArray = str_split($commands);
 
         foreach($commandArray as $command)
         {
             switch($command){
                 case "F":
-                    $rover->moveRoverForward($obstaclesArray);
+                    $rover->moveRoverForward($obstaclesArray, $maxRange);
                     break;
                 case "L":
                     $rover->rotateDirection($command);

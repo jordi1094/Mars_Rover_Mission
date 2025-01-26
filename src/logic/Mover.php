@@ -1,15 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace App\logic;
 
-use App\Position;
-use App\Direction;
-use App\ObstacleRandomCreator;
-use App\Obstacle;
+use App\class\Position;
+use App\class\Direction;
 use Exception;
 
-use function PHPUnit\Framework\throwException;
 
 class Mover {
 
@@ -26,8 +23,9 @@ class Mover {
 
     }
     
-    public static function moveForward(Position $currentPosition, Direction $direction, array $obstaclesArray):Position
+    public static function moveForward(Position $currentPosition, Direction $direction, array $obstaclesArray, $maxRange):Position
     {
+        
         list($x, $y) = $currentPosition->getPosition();
 
         switch($direction->getDirection()){
@@ -48,9 +46,9 @@ class Mover {
 
         if(self::nextPositionAble($x, $y, $obstaclesArray)){
 
-            if($x > 100 || $x < -100 || $y > 100 || $y < -100){
+            if($x > $maxRange || $x < -$maxRange || $y > $maxRange || $y < -$maxRange){
                 $newPosition = $currentPosition;
-                throw new Exception("The next step is not possible, if you go away this point you will lose the cojntrol from the rover. Your actual Position is: [". $currentPosition->getPosition()[0].",".$currentPosition->getPosition()[1]. "] ". $direction->getDirection());
+                throw new Exception("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: [". $currentPosition->getPosition()[0].",".$currentPosition->getPosition()[1]. "] ". $direction->getDirection());
             }else{
                 $newPosition = new Position($x, $y);
                 return $newPosition;

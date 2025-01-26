@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use App\Rover;
-use App\Obstacle;
-use App\Position;
+use App\class\Rover;
+use App\class\Obstacle;
+use App\class\Position;
 
 class MoveForwardTest extends TestCase
 {
@@ -12,7 +12,8 @@ class MoveForwardTest extends TestCase
     {   
         $rover = new Rover();
         $obstaclesArray = [];
-        $rover->moveRoverForward($obstaclesArray);
+        $maxRange = 100;
+        $rover->moveRoverForward($obstaclesArray, $maxRange);
         $expectedCoordinates = [0,1];
         $this-> assertEquals($expectedCoordinates, $rover->getCoordinates());
     }
@@ -21,7 +22,8 @@ class MoveForwardTest extends TestCase
     {   
         $rover = new Rover(0,0,"W");
         $obstaclesArray = [];
-        $rover->moveRoverForward($obstaclesArray);
+        $maxRange = 200;
+        $rover->moveRoverForward($obstaclesArray, $maxRange);
         $expectedCoordinates = [-1,0];
         $this-> assertEquals($expectedCoordinates, $rover->getCoordinates());
     }
@@ -31,65 +33,77 @@ class MoveForwardTest extends TestCase
         $rover = new Rover(0,0,"E");
         $obstacle = new Obstacle([1,0]);
         $obstaclesArray = [$obstacle];
+        $maxRange = 50;
+        $expectedObstacleCoordinates = $obstacle->getCoordinates();
         $roverStartCoordinates = $rover->getCoordinates();
-        $roverStartPosition = new Position($roverStartCoordinates[0], $roverStartCoordinates[1]);
+        $expectedDirection = $rover->getFacingDirection();
        
 
         $this-> expectException(Exception::class);
-        $this-> expectExceptionMessage("Obstacle detected at position ". $obstacle->getCoordinates().". Movement stopped. Current position: ".$roverStartPosition->getPosition());
+        $this-> expectExceptionMessage("Obstacle detected at position [" . $expectedObstacleCoordinates[0] . "," . $expectedObstacleCoordinates[1] . 
+                "]. Movement stopped. Current position: [" . $roverStartCoordinates[0] . "," . 
+                $roverStartCoordinates[1] . "] " . $expectedDirection->getDirection());
         
-        $rover-> moveRoverForward($obstaclesArray);
+        $rover-> moveRoverForward($obstaclesArray, $maxRange);
     }
 
     public function testStopRoverBeforeOutOfNorthRange()
     {
         $rover = new Rover(0,100,"N");
         $obstaclesArray = [];
-        $roverStartCoordinates = $rover->getCoordinates();
-        $roverStartPosition = new Position($roverStartCoordinates[0], $roverStartCoordinates[1]);
+        $maxRange = 100;
+        $roverExpectedCoordinates = $rover->getCoordinates();
+        $roverExpectedPosition = new Position($roverExpectedCoordinates[0], $roverExpectedCoordinates[1]);
+        $roverExpectedDirection = $rover->getFacingDirection();
         
         $this-> expectException(Exception::class);
-        $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the cojntrol from the rover. Your actual Position is: ". $roverStartPosition->getPosition() );
+        $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: [". $roverExpectedPosition->getPosition()[0].",".$roverExpectedPosition->getPosition()[1]. "] ". $roverExpectedDirection->getDirection());
         
-        $rover-> moveRoverForward($obstaclesArray);
+        $rover-> moveRoverForward($obstaclesArray, $maxRange);
     }
-    
+
     public function testStopRoverBeforeOutOfSudRange()
     {
         $rover = new Rover(0,-100,"S");
         $obstaclesArray = [];
-        $roverStartCoordinates = $rover->getCoordinates();
-        $roverStartPosition = new Position($roverStartCoordinates[0], $roverStartCoordinates[1]);
+        $maxRange = 100;
+        $roverExpectedCoordinates = $rover->getCoordinates();
+        $roverExpectedPosition = new Position($roverExpectedCoordinates[0], $roverExpectedCoordinates[1]);
+        $roverExpectedDirection = $rover->getFacingDirection();
         
         $this-> expectException(Exception::class);
-        $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the cojntrol from the rover. Your actual Position is: ". $roverStartPosition->getPosition());
+        $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: [". $roverExpectedPosition->getPosition()[0].",".$roverExpectedPosition->getPosition()[1]. "] ". $roverExpectedDirection->getDirection());
         
-        $rover-> moveRoverForward($obstaclesArray);
-    }
-
-    public function testStopRoverBeforeOutOfWestRange()
-    {
-        $rover = new Rover(-100,0,"W");
-        $obstaclesArray= [];
-        $roverStartCoordinates = $rover->getCoordinates();
-        $roverStartPosition = new Position($roverStartCoordinates[0], $roverStartCoordinates[1]);
-        
-        $this-> expectException(Exception::class);
-        $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the cojntrol from the rover. Your actual Position is: ". $roverStartPosition->getPosition());
-        
-        $rover-> moveRoverForward($obstaclesArray);
+        $rover-> moveRoverForward($obstaclesArray, $maxRange);
     }
 
     public function testStopRoverBeforeOutOfEastRange()
     {
         $rover = new Rover(100,0,"E");
         $obstaclesArray = [];
-        $roverStartCoordinates = $rover->getCoordinates();
-        $roverStartPosition = new Position($roverStartCoordinates[0], $roverStartCoordinates[1]);
+        $maxRange = 100;
+        $roverExpectedCoordinates = $rover->getCoordinates();
+        $roverExpectedPosition = new Position($roverExpectedCoordinates[0], $roverExpectedCoordinates[1]);
+        $roverExpectedDirection = $rover->getFacingDirection();
         
         $this-> expectException(Exception::class);
-        $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the cojntrol from the rover. Your actual Position is: ". $roverStartPosition->getPosition() );
+        $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: [". $roverExpectedPosition->getPosition()[0].",".$roverExpectedPosition->getPosition()[1]. "] ". $roverExpectedDirection->getDirection());
         
-        $rover-> moveRoverForward($obstaclesArray);
+        $rover-> moveRoverForward($obstaclesArray, $maxRange);
+    }
+
+    public function testStopRoverBeforeOutOfWestRange()
+    {
+        $rover = new Rover(-100,0,"W");
+        $obstaclesArray = [];
+        $maxRange = 100;
+        $roverExpectedCoordinates = $rover->getCoordinates();
+        $roverExpectedPosition = new Position($roverExpectedCoordinates[0], $roverExpectedCoordinates[1]);
+        $roverExpectedDirection = $rover->getFacingDirection();
+        
+        $this-> expectException(Exception::class);
+        $this-> expectExceptionMessage("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: [". $roverExpectedPosition->getPosition()[0].",".$roverExpectedPosition->getPosition()[1]. "] ". $roverExpectedDirection->getDirection());
+        
+        $rover-> moveRoverForward($obstaclesArray, $maxRange);
     }
 }

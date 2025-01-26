@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use App\ObstacleRandomCreator;
-use App\Rover;
+use App\logic\ObstacleRandomCreator;
+use App\class\Rover;
 
 class ObstacleRandomCreatorTest extends TestCase
 {
@@ -11,7 +11,8 @@ class ObstacleRandomCreatorTest extends TestCase
     {
         $rover = new Rover();
         $obstacleQuantity = 60;
-        $ObjectsArray = ObstacleRandomCreator::createRandomObstacleList($rover->getCoordinates(), $obstacleQuantity);
-        $this->assertEquals(count($ObjectsArray), $obstacleQuantity);
+        $maxRange = 200;
+        $ObjectsArray = ObstacleRandomCreator::createRandomObstacleList($rover->getCoordinates(), $obstacleQuantity, $maxRange);
+        $this->assertEquals($obstacleQuantity, count($ObjectsArray));
     }
 }

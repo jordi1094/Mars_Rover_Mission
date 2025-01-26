@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App;
+namespace App\class;
 
-use App\Position;
+use App\class\Position;
 
 class Obstacle
 {

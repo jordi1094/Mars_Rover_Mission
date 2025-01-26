@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\Rover;
-use App\Direction;
+use App\class\Rover;
+use App\class\Direction;
 
 class getFacingDirectionTest extends TestCase
 {

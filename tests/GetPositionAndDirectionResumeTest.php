@@ -1,9 +1,9 @@
 <?php
 
-use App\Direction;
-use App\Position;
 use PHPUnit\Framework\TestCase;
-use App\Rover;
+use App\class\Direction;
+use App\class\Position;
+use App\class\Rover;
 
 class GetPositionAndDirectionResumeTest extends TestCase
 {

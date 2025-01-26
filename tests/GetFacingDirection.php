@@ -9,6 +9,6 @@ class getFacingDirectionTest extends TestCase
     {
         $rover = new Rover();
         $direction = $rover->getFacingDirection();
-        $this-> assertEquals("N", $direction);
+        $this->assertEquals("N", $direction);
     }
 }

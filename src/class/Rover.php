@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\class;
@@ -13,37 +14,35 @@ class Rover
     private Position $position;
     private Direction $direction;
 
-    public function __construct(int $x=0, int $y=0, string $direction = "N")
+    public function __construct(int $x = 0, int $y = 0, string $direction = "N")
     {
         $this->position = new Position($x, $y);
         $this->direction = new Direction($direction);
     }
 
-    public function getCoordinates():array
+    public function getCoordinates(): array
     {
         return $this->position->getPosition();
     }
 
-    public function getFacingDirection():Direction
+    public function getFacingDirection(): Direction
     {
         return $this->direction;
     }
 
-    public function getPositionAndDirectionResume():array
+    public function getPositionAndDirectionResume(): array
     {
-        return [$this->position ,$this->direction];
+        return [$this->position, $this->direction];
     }
 
     public function moveRoverForward($obstaclesArray, $maxRange)
     {
         $currentPosition = $this->position;
-        $currentDirection= $this->direction;
-        
+        $currentDirection = $this->direction;
+
         $newPosition = Mover::moveForward($currentPosition, $currentDirection, $obstaclesArray, $maxRange);
 
         $this->position->setPosition($newPosition);
-
-        
     }
 
     public function rotateDirection($rotateInput)
@@ -53,6 +52,5 @@ class Rover
         $newDirection =  Rotator::rotate($rotateInput, $currentDirection);
 
         $this->direction->setDirection($newDirection);
-
     }
 }

@@ -20,7 +20,7 @@ class Position
         $this->y = $newPosition->y;
     }
 
-    public function getPosition():array
+    public function getPosition(): array
     {
         return [$this->x, $this->y];
     }

@@ -10,41 +10,41 @@ use App\class\Rover;
 use App\class\Map;
 use Exception;
 
-$correctDirections = ["N", "E", "S", "W"]; 
+$correctDirections = ["N", "E", "S", "W"];
 
 
 echo " \n \n \n \n";
-$mapSice = readline("Insert map Dimensions:(only numeric value will be accepted)\n");
+$mapsize = readline("Insert map Dimensions:(only numeric value will be accepted)\n");
 
-while(!is_numeric($mapSice)){
-    $mapSice = readline("Insert map Dimensions:(only numeric value will be accepted)\n");
+while (!is_numeric($mapsize)) {
+    $mapsize = readline("Insert map Dimensions:(only numeric value will be accepted)\n");
 }
-$mapSice = intval($mapSice);
-$maxTouchDownPoint = $mapSice/2;
+$mapsize = intval($mapsize);
+$maxTouchDownPoint = $mapsize / 2;
 $minTouchDownPoint = -$maxTouchDownPoint;
 
 $startRoverXcoordinate = readline("Insert rover X  touchDown coordinate:");
 
-while (!is_numeric($startRoverXcoordinate) || $startRoverXcoordinate > $maxTouchDownPoint || $startRoverXcoordinate < $minTouchDownPoint){
+while (!is_numeric($startRoverXcoordinate) || $startRoverXcoordinate > $maxTouchDownPoint || $startRoverXcoordinate < $minTouchDownPoint) {
     $startRoverXcoordinate = readline("Insert rover X  touchDown coordinate:");
 }
 $startRoverXcoordinate = intval($startRoverXcoordinate);
 
 $startRoverYcoordinate = readline("Insert rover Y touchDown coordinate:");
 
-while (!is_numeric($startRoverYcoordinate) || $startRoverYcoordinate > $maxTouchDownPoint || $startRoverYcoordinate < $minTouchDownPoint){
+while (!is_numeric($startRoverYcoordinate) || $startRoverYcoordinate > $maxTouchDownPoint || $startRoverYcoordinate < $minTouchDownPoint) {
     $startRoverYcoordinate = readline("Insert rover Y touchDown coordinate:");
 }
 $startRoverYcoordinate = intval($startRoverYcoordinate);
 
 $startRoverFacingDirection = strtoupper(readline(("Insert Rover facing direction:(N/S/E/W)")));
-while(!in_array($startRoverFacingDirection,$correctDirections)){
+while (!in_array($startRoverFacingDirection, $correctDirections)) {
     $startRoverFacingDirection = strtoupper(readline(("Insert Rover facing direction:(N/S/E/W)")));
 }
 $rover = new Rover($startRoverXcoordinate, $startRoverYcoordinate, $startRoverFacingDirection);
-$map = new Map($mapSice, $rover->getCoordinates());
+$map = new Map($mapsize, $rover->getCoordinates());
 
-function extractPositionAndDirection(array $positionAndDirection):array
+function extractPositionAndDirection(array $positionAndDirection): array
 {
     $position = $positionAndDirection[0]->getPosition();
     $direction = $positionAndDirection[1]->getDirection();
@@ -66,18 +66,17 @@ echo "Controls: \nMove Forward: F \nMove Rigth: R \nMove Left: L \nWrite 'Discon
 $commands = strtoupper(readline("Insert the commands:\n"));
 
 
-while($commands !== "DISCONECT"){
-    try{
+while ($commands !== "DISCONECT") {
+    try {
 
         $finalPositionAndDirection = ReaderAndExecutorCommands::readAndExecuteCommands($commands, $rover, $map);
         [$finalPosition, $finalDirection] = extractPositionAndDirection($finalPositionAndDirection);
-        echo "Comads done, the actual position is: \n[".$finalPosition[0].",".$finalPosition[1]."] ".$finalDirection;
-    }catch(Exception $e){
+        echo "Comads done, the actual position is: \n[" . $finalPosition[0] . "," . $finalPosition[1] . "] " . $finalDirection;
+    } catch (Exception $e) {
         echo $e->getMessage();
-    }finally{
+    } finally {
         $commands = strtoupper(readline("\n \nInsert new commands:\n"));
     }
-    
 }
-    
+
 echo "rover disconected.";

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\logic;
@@ -8,27 +9,26 @@ use App\class\Direction;
 use Exception;
 
 
-class Mover {
+class Mover
+{
 
-    private static function nextPositionAble(int $x, int $y, array $obstaclesArray):bool
+    private static function nextPositionAble(int $x, int $y, array $obstaclesArray): bool
     {
-        foreach($obstaclesArray as $obstacle)
-        {
+        foreach ($obstaclesArray as $obstacle) {
             $coordinates = $obstacle->getCoordinates();
-            if($coordinates === [$x, $y]){
+            if ($coordinates === [$x, $y]) {
                 return false;
             }
         }
         return true;
-
     }
-    
-    public static function moveForward(Position $currentPosition, Direction $direction, array $obstaclesArray, $maxRange):Position
+
+    public static function moveForward(Position $currentPosition, Direction $direction, array $obstaclesArray, $maxRange): Position
     {
-        
+
         list($x, $y) = $currentPosition->getPosition();
 
-        switch($direction->getDirection()){
+        switch ($direction->getDirection()) {
             case "N":
                 $y += 1;
                 break;
@@ -44,24 +44,23 @@ class Mover {
         }
 
 
-        if(self::nextPositionAble($x, $y, $obstaclesArray)){
+        if (self::nextPositionAble($x, $y, $obstaclesArray)) {
 
-            if($x > $maxRange || $x < -$maxRange || $y > $maxRange || $y < -$maxRange){
+            if ($x > $maxRange || $x < -$maxRange || $y > $maxRange || $y < -$maxRange) {
                 $newPosition = $currentPosition;
-                throw new Exception("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: [". $currentPosition->getPosition()[0].",".$currentPosition->getPosition()[1]. "] ". $direction->getDirection());
-            }else{
+                throw new Exception("The next step is not possible, if you go away this point you will lose the control from the rover. Your actual Position is: [" . $currentPosition->getPosition()[0] . "," . $currentPosition->getPosition()[1] . "] " . $direction->getDirection());
+            } else {
                 $newPosition = new Position($x, $y);
                 return $newPosition;
             }
-        }else{
+        } else {
             $obstacleCoordinates = [$x, $y];
             $newPosition = $currentPosition;
             throw new Exception(
-                "Obstacle detected at position [" . $obstacleCoordinates[0] . "," . $obstacleCoordinates[1] . 
-                "]. Movement stopped. Current position: [" . $newPosition->getPosition()[0] . "," . 
-                $newPosition->getPosition()[1] . "] " . $direction->getDirection()
+                "Obstacle detected at position [" . $obstacleCoordinates[0] . "," . $obstacleCoordinates[1] .
+                    "]. Movement stopped. Current position: [" . $newPosition->getPosition()[0] . "," .
+                    $newPosition->getPosition()[1] . "] " . $direction->getDirection()
             );
-            
         }
     }
 }

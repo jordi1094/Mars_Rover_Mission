@@ -21,7 +21,7 @@ The fist command is to be sure that the composer have the files updated.
 - [X] The rover can comve forward (f).
 - [X] The rover can rotate (l/r).
 - [X] The planet is square.
-- [X] The reover detects obtacles before move to new square. It stop the sequence and reposrts the obstacle.
+- [X] The reover detects obtacles before move to new square. It stop the sequence and reports the obstacle.
 - [X] Follow Tdd Method.
 
 ## Project Estructure.

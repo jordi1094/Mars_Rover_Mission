@@ -12,6 +12,6 @@ class getFacingDirectionTest extends TestCase
         $expectetDirection = new Direction("N");
 
         $facingDirection = $rover->getFacingDirection();
-        $this-> assertEquals($expectetDirection, $facingDirection);
+        $this->assertEquals($expectetDirection, $facingDirection);
     }
 }

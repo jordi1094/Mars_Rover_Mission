@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\class;
@@ -11,10 +12,10 @@ class Obstacle
 
     public function __construct(array $obstacleSite)
     {
-        $this-> position = new Position ($obstacleSite[0], $obstacleSite[1]);
+        $this->position = new Position($obstacleSite[0], $obstacleSite[1]);
     }
 
-    public function getCoordinates():array
+    public function getCoordinates(): array
     {
         return $this->position->getposition();
     }

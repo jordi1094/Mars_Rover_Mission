@@ -9,6 +9,6 @@ class GetCoordinatesTest extends TestCase
     {
         $rover = new Rover();
         $position = $rover->getCoordinates();
-        $this->assertEquals([0,0], $position);
+        $this->assertEquals([0, 0], $position);
     }
 }

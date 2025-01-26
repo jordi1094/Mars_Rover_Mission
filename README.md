@@ -24,4 +24,12 @@ The fist command is to be sure that the composer have the files updated.
 - [X] The reover detects obtacles before move to new square. It stop the sequence and reposrts the obstacle.
 - [X] Follow Tdd Method.
 
+## Project Estructure.
+
+- class: All the objects needed in the project.
+- logic: All the logics to conect the initial program with the objects.
+- index.php: Its the main file to execute.
+- test: this folder contains the test to check the correct work of the project.
+
+
 

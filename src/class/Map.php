@@ -11,7 +11,7 @@ class Map
     private int $maxRangeMovement;
     private array $obstacleArray;
 
-    public function __construct($mapSice, $roverCoordinates, int $obstaclesQuantity = null)
+    public function __construct($mapSice, $roverCoordinates, ?int $obstaclesQuantity = null)
     {
         $this->obstaclesQuantity = $obstaclesQuantity ?? ($mapSice * $mapSice)*(1/$this->medianInteractionBetweenObstacles);
         $this->mapSice = $mapSice;

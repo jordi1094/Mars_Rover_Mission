@@ -13,7 +13,7 @@ class Direction
         $this->direction = $direction;
     }
 
-    public function setDirection(string $newDirection)
+    public function setDirection(string $newDirection):void
     {
         $this->direction = $newDirection;
     }

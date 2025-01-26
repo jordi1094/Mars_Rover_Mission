@@ -34,6 +34,6 @@ The fist command is to be sure that the composer have the files updated.
 ## Considerations.
 
 - I have set a limit of a max map size to 1.000.000 .
-- EL rango de movimiento sera la mitad de el maximo de mapa ya que el centro del mapa se considera el punto 0,0. Por ejemplo si el mata tiene 100 posiciones, Puedes moverte de la 50 a la -50 tanto en vertical como horizontal.
-- Els comandos que son incorrectos los ignora y ejecuta el siguiente.
-- el numero de obstaculos en el mapa variará segun las dimensiones del mapa. Se puede cambiar ese ratio en el documento: Map.php
+- The movement range will be half of the maximum map size since the center of the map is considered the point 0,0. For example, if the map has 100 positions, you can move from 50 to -50 both vertically and horizontally.
+- Incorrect commands should be ignored, and the next one should be executed.
+- The number of obstacles on the map will vary depending on the map's dimensions. This ratio can be changed in the document: Map.php.

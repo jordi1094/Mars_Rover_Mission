@@ -14,7 +14,7 @@ class Position
         $this->y = $y;
     }
 
-    public function setPosition(Position $newPosition)
+    public function setPosition(Position $newPosition):void
     {
         $this->x = $newPosition->x;
         $this->y = $newPosition->y;
@@ -25,8 +25,8 @@ class Position
         return [$this->x, $this->y];
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return "[".$this->x.",".$this->y."]";
+        return "[" . $this->x . "," . $this->y . "]";
     }
 }

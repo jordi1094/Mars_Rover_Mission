@@ -36,7 +36,7 @@ class Rover
         return [$this->position, $this->direction];
     }
 
-    public function moveRoverForward(Map $map)
+    public function moveRoverForward(Map $map):void
     {
         $currentPosition = $this->position;
         $currentDirection = $this->direction;
@@ -46,7 +46,7 @@ class Rover
         $this->position->setPosition($newPosition);
     }
 
-    public function rotateDirection($rotateInput)
+    public function rotateDirection($rotateInput):void
     {
         $currentDirection = $this->direction->getDirection();
 

@@ -13,7 +13,7 @@ class Map
 
     public function __construct($mapSice, $roverCoordinates, ?int $obstaclesQuantity = null)
     {
-        $this->obstaclesQuantity = $obstaclesQuantity ?? ($mapSice * $mapSice)*(1/$this->medianInteractionBetweenObstacles);
+        $this->obstaclesQuantity = $obstaclesQuantity ?? round(($mapSice * $mapSice)*(1/$this->medianInteractionBetweenObstacles));
         $this->mapSice = $mapSice;
         $this->maxRangeMovement = $this->mapSice/2;
 

@@ -29,6 +29,11 @@ class Rover
         return $this->direction;
     }
 
+    public function getPositionAndDirectionResume():array
+    {
+        return [$this->position ,$this->direction];
+    }
+
     public function moveRoverForward($obstaclesArray)
     {
         $currentPosition = $this->position;
@@ -37,6 +42,8 @@ class Rover
         $newPosition = Mover::moveForward($currentPosition, $currentDirection, $obstaclesArray);
 
         $this->position->setPosition($newPosition);
+
+        
     }
 
     public function rotateDirection($rotateInput)

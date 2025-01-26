@@ -50,7 +50,7 @@ class Mover {
 
             if($x > 100 || $x < -100 || $y > 100 || $y < -100){
                 $newPosition = $currentPosition;
-                throw new Exception("The next step is not possible, if you go away this point you will lose the cojntrol from the rover. Your actual Position is: ". $currentPosition->getPosition());
+                throw new Exception("The next step is not possible, if you go away this point you will lose the cojntrol from the rover. Your actual Position is: [". $currentPosition->getPosition()[0].",".$currentPosition->getPosition()[1]. "] ". $direction->getDirection());
             }else{
                 $newPosition = new Position($x, $y);
                 return $newPosition;
@@ -58,8 +58,12 @@ class Mover {
         }else{
             $obstacleCoordinates = [$x, $y];
             $newPosition = $currentPosition;
-            throw new Exception("Obstacle detected at position ". $obstacleCoordinates.". Movement stopped. Current position: ".$newPosition->getPosition());
+            throw new Exception(
+                "Obstacle detected at position [" . $obstacleCoordinates[0] . "," . $obstacleCoordinates[1] . 
+                "]. Movement stopped. Current position: [" . $newPosition->getPosition()[0] . "," . 
+                $newPosition->getPosition()[1] . "] " . $direction->getDirection()
+            );
+            
         }
-
     }
 }

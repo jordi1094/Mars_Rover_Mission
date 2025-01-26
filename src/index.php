@@ -1,16 +1,29 @@
 <?php
 
-
 namespace App;
+
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use App\ReaderAndExecutorCommands;
 use App\ObstacleRandomCreator;
 use App\Rover;
+use Exception;
+use PhpParser\Node\Stmt\TryCatch;
 
 $mapSice = 200;
-$medianInteractionBetweenObstacles = 15;
+$medianInteractionBetweenObstacles = 60;
 $obstacleQuantity = ($mapSice * $mapSice)*(1/$medianInteractionBetweenObstacles);
 $rover = new Rover();
 $obstacleArray = ObstacleRandomCreator::createRandomObstacleList($rover->getCoordinates(), $obstacleQuantity);
+
+function extractPositionAndDirection(array $positionAndDirection):array
+{
+    $position = $positionAndDirection[0]->getPosition();
+    $direction = $positionAndDirection[1]->getDirection();
+
+    return [$position, $direction];
+}
 
 
 echo " \n \n \n \n";
@@ -27,9 +40,16 @@ $commands = strtoupper(readline("insert the commands:\n"));
 
 
 while($commands !== "END"){
-    ReaderAndExecutorCommands::readAndExecuteCommands($commands, $rover, $obstacleArray);
-    
-    $commands = strtoupper(readline("insert the commands:\n"));
+    try{
+
+        $finalPositionAndDirection = ReaderAndExecutorCommands::readAndExecuteCommands($commands, $rover, $obstacleArray);
+        [$finalPosition, $finalDirection] = extractPositionAndDirection($finalPositionAndDirection);
+        echo "Comads done, the actual position is: \n[".$finalPosition[0].",".$finalPosition[1]."] ".$finalDirection;
+    }catch(Exception $e){
+        echo $e->getMessage();
+    }finally{
+        $commands = strtoupper(readline("\n \nInsert new commands:\n"));
+    }
     
 }
     

@@ -7,7 +7,7 @@ use App\Rover;
 
 class ReaderAndExecutorCommands
 {
-    public static function readAndExecuteCommands( string $commands, Rover $rover, Array $obstaclesArray)
+    public static function readAndExecuteCommands( string $commands, Rover $rover, Array $obstaclesArray):array
     {
         $commandArray = str_split($commands);
 
@@ -27,5 +27,6 @@ class ReaderAndExecutorCommands
                     echo "The command ". $command. " is not correct. It will be omited.";
             }
         }
-    }
+        return $rover->getPositionAndDirectionResume();
+        }
 }

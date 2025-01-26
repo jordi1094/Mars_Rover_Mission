@@ -12,7 +12,8 @@ use Exception;
 
 class Mover
 {   
-    private static function getNextPosition(Position $position, Direction $direction){
+    private static function getNextPosition(Position $position, Direction $direction):Position
+    {
         list($x, $y) = $position->getPosition();
 
          switch ($direction->getDirection()) {
@@ -43,7 +44,7 @@ class Mover
         return true;
     }
 
-    private static function isOutsideBounds(Position $position, $maxRange)
+    private static function isOutsideBounds(Position $position, int $maxRange):bool
     {
         list($x, $y) = $position->getPosition();
 

@@ -7,12 +7,12 @@ namespace App\logic;
 
 class Rotator
 {
-    private static array $orderDirections = ["N", "E", "S", "W"];
+    public const ORDER_DIRECTION = ["N", "E", "S", "W"];
 
     public static function rotate(string $rotateInput, string $currentDirection): string
     {
-        $directionCount = count(self::$orderDirections);
-        $currentIndex = array_search($currentDirection, self::$orderDirections);
+        $directionCount = count(self::ORDER_DIRECTION);
+        $currentIndex = array_search($currentDirection, self::ORDER_DIRECTION);
 
         if ($rotateInput === "R") {
             $newIndex = $currentIndex + 1;
@@ -21,7 +21,7 @@ class Rotator
         }
 
         $finalIndexInArray = ($newIndex + $directionCount) % $directionCount;
-        $newDirection = self::$orderDirections[$finalIndexInArray];
+        $newDirection = self::ORDER_DIRECTION[$finalIndexInArray];
 
         return $newDirection;
     }

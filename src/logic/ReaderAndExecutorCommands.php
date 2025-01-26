@@ -19,8 +19,6 @@ class ReaderAndExecutorCommands
                     $rover->moveRoverForward($map);
                     break;
                 case "L":
-                    $rover->rotateDirection($command);
-                    break;
                 case "R":
                     $rover->rotateDirection($command);
                     break;
